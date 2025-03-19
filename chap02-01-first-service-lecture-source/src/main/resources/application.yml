@@ -1,0 +1,16 @@
+server:
+#  port: 8111
+  port: 0 # 랜덤한 포트를 배정 -> Load Balancing을 통해 포트를 지정하지 않고 이름을 통해 사용할 수 있게 할 예정
+
+spring:
+  application:
+    name: 1st-service
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka

@@ -1,0 +1,10 @@
+server:
+  port: 8761
+eureka:
+  client:
+
+    # eureka server는 eureka server에서 저장해서 관리할 필요가 X
+    register-with-eureka: false
+
+    # eureka server는 다른 microservice들을 주기적으로(30초마다) 갱신해서 인지할 필요가 없다.
+    fetch-registry: false
