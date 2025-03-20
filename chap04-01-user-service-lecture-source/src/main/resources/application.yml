@@ -21,3 +21,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+token:
+  expiration_time: 43200000
+  secret: +6HQ06S82uGTBwNXZtOcnsgXAihPT2HsVx7jTTgkd8zrusd05jHOYWhz5htMNE7s0xlxl8CFmMssH/u6dMN9sg==

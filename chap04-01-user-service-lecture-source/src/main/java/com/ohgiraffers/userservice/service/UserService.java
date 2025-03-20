@@ -6,4 +6,6 @@ import com.ohgiraffers.userservice.dto.UserDTO;
 
 public interface UserService extends UserDetailsService {
     void registUser(UserDTO userDTO);
+	
+	UserDTO getUserById(String memNo);
 }

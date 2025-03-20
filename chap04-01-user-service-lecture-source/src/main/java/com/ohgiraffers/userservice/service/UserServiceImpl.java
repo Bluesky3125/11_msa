@@ -68,4 +68,10 @@ public class UserServiceImpl implements UserService {
 		return new User(loginUser.getEmail(), loginUser.getEncryptedPwd(),
 			true, true, true, true, grantedAuthorities);
 	}
+	
+	@Override
+	public UserDTO getUserById(String memNo) {
+		UserEntity foundUser = userRepository.findById(Long.parseLong(memNo)).get();
+		return modelMapper.map(foundUser, UserDTO.class);
+	}
 }
