@@ -21,8 +21,11 @@ public class UserEntity {
     @Column(name="email", nullable=false, length=50, unique=true)
     private String email;   // 회원의 이메일(ID 개념)
 
-    @Column(name="pwd", nullable=false)
-    private String pwd;     // 회원의 비밀번호
+    // @Column(name="pwd", nullable=false)
+    // private String pwd;     // 회원의 비밀번호
+
+    @Column(name="encrypted_pwd", nullable=false)
+    private String encryptedPwd;     // 회원의 비밀번호
 
     @Column(name="name", nullable=false, length=50)
     private String name;    // 회원의 실제 이름
