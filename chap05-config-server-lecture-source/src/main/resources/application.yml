@@ -8,4 +8,4 @@ spring:
     config:
       server:
         git:
-          uri: file:///C:\lecture\11_msa\config\msa_config
+          uri: file:///C:\lecture\11_msa\config

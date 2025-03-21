@@ -31,6 +31,22 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
-token:
-  expiration_time: 43200000
-  secret: +6HQ06S82uGTBwNXZtOcnsgXAihPT2HsVx7jTTgkd8zrusd05jHOYWhz5htMNE7s0xlxl8CFmMssH/u6dMN9sg==
+#token:
+#  expiration_time: 43200000
+#  secret: +6HQ06S82uGTBwNXZtOcnsgXAihPT2HsVx7jTTgkd8zrusd05jHOYWhz5htMNE7s0xlxl8CFmMssH/u6dMN9sg==
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, beans, info
+  info:
+    env:
+      enabled: true
+    java:
+      enabled: true
+    os:
+      enabled: true
+info:
+  app:
+    name:
