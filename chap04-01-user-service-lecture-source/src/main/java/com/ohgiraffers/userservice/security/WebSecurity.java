@@ -48,7 +48,8 @@ public class WebSecurity {
 			/* 설명. 401 인증 필요, 403 인가 필요 */
 			// authz.requestMatchers(new AntPathRequestMatcher("/users/**")).permitAll()
 			// 	    .anyRequest().authenticated()
-			authz.requestMatchers(new AntPathRequestMatcher("/users/**", "POST")).permitAll()
+			authz.requestMatchers(new AntPathRequestMatcher("/health", "GET")).permitAll()
+				 .requestMatchers(new AntPathRequestMatcher("/users/**", "POST")).permitAll()
 				 .requestMatchers(new AntPathRequestMatcher("/users/**", "GET")).hasRole("ENTERPRISE")
 				 .anyRequest().authenticated()
 			)

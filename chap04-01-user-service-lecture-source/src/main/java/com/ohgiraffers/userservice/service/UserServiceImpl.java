@@ -6,7 +6,9 @@ import java.util.UUID;
 
 import com.ohgiraffers.userservice.aggregate.UserEntity;
 import com.ohgiraffers.userservice.dto.UserDTO;
+import com.ohgiraffers.userservice.infrastructure.OrderServiceClient;
 import com.ohgiraffers.userservice.repository.UserRepository;
+import com.ohgiraffers.userservice.vo.ResponseOrder;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +26,18 @@ public class UserServiceImpl implements UserService {
 	UserRepository userRepository;
 	ModelMapper modelMapper;
 	BCryptPasswordEncoder bCryptPasswordEncoder;
+	OrderServiceClient orderServiceClient;
 	
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository
 						 , ModelMapper modelMapper
 					 	 , BCryptPasswordEncoder bCryptPasswordEncoder
+						 , OrderServiceClient orderServiceClient
 	) {
 		this.userRepository = userRepository;
 		this.modelMapper = modelMapper;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		this.orderServiceClient = orderServiceClient;
 	}
 	
 	@Override
@@ -72,6 +77,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDTO getUserById(String memNo) {
 		UserEntity foundUser = userRepository.findById(Long.parseLong(memNo)).get();
-		return modelMapper.map(foundUser, UserDTO.class);
+		UserDTO userDTO = modelMapper.map(foundUser, UserDTO.class);
+		
+		/* 설명. 회원이 주문한 내역을 order 서비스에서 Feign Client로 조회해서 가져오기 */
+		List<ResponseOrder> orderList= orderServiceClient.getUserOrders(memNo);
+		userDTO.setOrders(orderList);
+		
+		return userDTO;
 	}
 }

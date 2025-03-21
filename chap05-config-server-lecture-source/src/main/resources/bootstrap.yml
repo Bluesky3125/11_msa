@@ -1,0 +1,6 @@
+# 설정용 서버 인식
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: msa_config

@@ -1,0 +1,56 @@
+package com.ohgiraffers.orderservice.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ohgiraffers.orderservice.aggregate.Order;
+import com.ohgiraffers.orderservice.aggregate.OrderMenu;
+import com.ohgiraffers.orderservice.dto.OrderDTO;
+import com.ohgiraffers.orderservice.dto.OrderMenuDTO;
+import com.ohgiraffers.orderservice.repositoryOrDAO.OrderMapper;
+
+@Service
+public class OrderServiceImpl implements OrderService {
+	private final OrderMapper orderMapper;
+	
+	@Autowired
+	public OrderServiceImpl(OrderMapper orderMapper) {
+		this.orderMapper = orderMapper;
+	}
+	
+	@Override
+	public List<OrderDTO> getOrderByUserId(int userId) {
+		List<Order> orderList = orderMapper.selectOrderByUserId(userId);
+		return orderToOrderDTO(orderList);
+	}
+	
+	/* 설명. modelmapper 안쓰고 메소드로 바꿔보기 Entity 개념 -> DTO */
+	private List<OrderDTO> orderToOrderDTO(List<Order> orderList) {
+		List<OrderDTO> orderDTOList = new ArrayList<>();
+		for (Order order : orderList) {
+			OrderDTO orderDTO = new OrderDTO();
+			orderDTO.setOrderDate(order.getOrderDate());
+			orderDTO.setOrderTime(order.getOrderTime());
+			
+			List<OrderMenu> orderMenuList = order.getOrderMenus();
+			List<OrderMenuDTO> orderMenuDTOList = new ArrayList<>();
+			for (OrderMenu orderMenu : orderMenuList) {
+				OrderMenuDTO orderMenuDTO = new OrderMenuDTO();
+				orderMenuDTO.setOrderCode(orderMenu.getOrderCode());
+				orderMenuDTO.setMenuCode(orderMenu.getMenuCode());
+				orderMenuDTO.setOrderAmount(orderMenu.getOrderAmount());
+				
+				orderMenuDTOList.add(orderMenuDTO);
+			}
+			
+			orderDTO.setOrderMenus(orderMenuDTOList);
+			orderDTO.setTotalOrderPrice(order.getTotalOrderPrice());
+			orderDTOList.add(orderDTO);
+		}
+		
+		return orderDTOList;
+	}
+}

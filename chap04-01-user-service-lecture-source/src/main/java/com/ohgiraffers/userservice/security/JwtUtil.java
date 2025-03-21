@@ -3,7 +3,6 @@ package com.ohgiraffers.userservice.security;
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,11 +75,9 @@ public class JwtUtil {
 				Arrays.stream(claims.get("auth").toString()
 									.replace("[", "")
 									.replace("]", "")
-									.split(", ")
-							 )
+									.split(", "))
 					  .map(SimpleGrantedAuthority::new)
-					  .collect(Collectors.toList())
-				;
+					  .collect(Collectors.toList());
 		}
 		return new UsernamePasswordAuthenticationToken(userDetails, "", authorities);
 	}

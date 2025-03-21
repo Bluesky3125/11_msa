@@ -51,6 +51,16 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
     // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    // FeignClient
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+    // bootstrap.yml을 인지시키기 위한 dependency
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation("org.springframework.cloud:spring-cloud-starter-bootstrap")
+
+    // spring boot의 모니터링 시스템 또는 동적 설정 변경 등 부가적인 기능 제공
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 }
 
 dependencyManagement {
