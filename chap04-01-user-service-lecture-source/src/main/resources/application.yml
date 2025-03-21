@@ -47,6 +47,11 @@ management:
       enabled: true
     os:
       enabled: true
+
 info:
   app:
-    name:
+    name: User Microservice
+    description: This is description
+    version: 1.0.0
+  author: I'm author
+  company: this company
